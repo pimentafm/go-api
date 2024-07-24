@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/pimentafm/go-api/configs"
+)
 
 func main() {
-	fmt.Println("Start server")
+	config, _ := configs.LoadConfig(".")
+	fmt.Println(config.DBDriver)
 }
