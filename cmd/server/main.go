@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
+	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth"
 	"github.com/pimentafm/go-api/configs"
 	"github.com/pimentafm/go-api/internal/entity"
@@ -35,6 +35,7 @@ func main() {
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	//r.Use(LogRequest)
 
 	r.Route("/products", func(r chi.Router) {
 		r.Use(jwtauth.Verifier(configs.TokenAuth))
@@ -51,3 +52,10 @@ func main() {
 
 	http.ListenAndServe(":8000", r)
 }
+
+// func LogRequest(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		log.Println(r.Method, r.URL.Path)
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
